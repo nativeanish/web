@@ -10,7 +10,6 @@ const useAddress = create<State>((set) => ({
     address: null,
     set_address: () => {
         const _type = useNavbarButton.getState().type
-        console.log(_type)
         if (_type === "arconnect") {
             if (window.arweaveWallet) {
                 window.arweaveWallet.getActiveAddress().then((e) => set({ address: String(e) })).catch((er) => {
@@ -20,12 +19,8 @@ const useAddress = create<State>((set) => ({
             }
         }
         if (_type === "arweave.app") {
-            const _data = wallet.address
-            if (_data?.length) {
-                set({ address: _data })
-            } else {
-                set({ address: null })
-            }
+            const _address = wallet.address;
+            _address?.length ? set({ address: _address }) : set({ address: null })
         }
     },
     unset_address: () => {
