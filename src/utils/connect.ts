@@ -53,6 +53,15 @@ export const _automatically_check = async () => {
         }
     }
     //for arweave.app
+    wallet.on("connect", () => {
+        if (wallet.address?.length && wallet.connected) {
+            const setType = useNavbarButton.getState().setType
+            setType("arweave.app");
+            set_address()
+        } else {
+            unset_address()
+        }
+    })
 }
 
 export const automatically_check = () => { _automatically_check().then().catch() }
