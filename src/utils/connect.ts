@@ -25,13 +25,16 @@ export const connect_arconnect = async () => {
     }
 }
 export const connect_areave = async () => {
-    try {
-        await wallet.connect()
-        set_address()
-    } catch (err) {
-        console.log(err)
-        unset_address()
-    }
+    wallet.on("connect", () => {
+        console.log(wallet.address)
+    })
+    // try {
+    //     await wallet.connect()
+    //     set_address()
+    // } catch (err) {
+    //     console.log(err)
+    //     unset_address()
+    // }
 }
 export const connect = () => {
     const data = useNavbarButton.getState().type;
@@ -53,15 +56,15 @@ export const _automatically_check = async () => {
         }
     }
     //for arweave.app
-    wallet.on("connect", () => {
-        if (wallet.address?.length && wallet.connected) {
-            const setType = useNavbarButton.getState().setType
-            setType("arweave.app");
-            set_address()
-        } else {
-            unset_address()
-        }
-    })
+    // wallet.on("connect", () => {
+    //     if (wallet.address?.length && wallet.connected) {
+    //         const setType = useNavbarButton.getState().setType
+    //         setType("arweave.app");
+    //         set_address()
+    //     } else {
+    //         unset_address()
+    //     }
+    // })
 }
 
 export const automatically_check = () => { _automatically_check().then().catch() }
